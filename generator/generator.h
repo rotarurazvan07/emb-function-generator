@@ -1,0 +1,1 @@
+#define GENERATOR_DUTY_CYCLE
