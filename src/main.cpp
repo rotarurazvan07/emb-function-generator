@@ -1,9 +1,9 @@
-#include <Arduino.h>
+#include "wave_manager.h"
 
 void setup() {
-  // put your setup code here, to run once:
+    generator_start();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+    generator_execute();
 }
