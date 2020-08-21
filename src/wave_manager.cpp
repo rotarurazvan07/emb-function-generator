@@ -11,11 +11,10 @@ void generator_start()
 {
     Serial.begin(9600);
     Serial.println("Starting debug!");
-
+    Serial.println(GENERATOR_WAVES_NUMBER);
 
     pinMode(WAVE_SIGNAL_OUTPUT_PIN, OUTPUT);
     digitalWrite(WAVE_SIGNAL_OUTPUT_PIN, LOW);
-    Serial.println(GENERATOR_WAVES_NUMBER);
 
     pinMode(WAVE_SELECT_BUTTON, INPUT_PULLUP);
     attachInterrupt(digitalPinToInterrupt(WAVE_SELECT_BUTTON), wave_select_btn_ISR, FALLING);
@@ -28,7 +27,10 @@ void generator_execute()
 {
     if (wave_signaling)
     {
+        Serial.print("Selected: ");
+        Serial.println(wave_name(wave_type_current));
         wave_generate(wave_type_current);
+        Serial.println("Exiting current signal run");
     }
 }
 
@@ -47,16 +49,12 @@ static void wave_utility_btn_ISR()
             else
             {
                 detachInterrupt(digitalPinToInterrupt(WAVE_SELECT_BUTTON));
-                Serial.print("Selected: ");
-                Serial.println(wave_name(wave_type_current));
                 wave_signaling = true;
             }
         }
         else
         {
             wave_signaling = false;
-
-            Serial.println("Exiting current signal run");
 
             // Clear interrupt flag
             EIFR = bit(INTF0);
