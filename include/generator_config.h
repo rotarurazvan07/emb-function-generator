@@ -20,11 +20,11 @@
 #define GENERATOR_USE_FREQ_KNOB GENERATOR_USE_FREQ_KNOB_NO
 
 /* Input desired frequency here if not using knob */
-#if GENERATOR_USE_FREQ_KNOB == GENERATOR_USE_FREQ_KNOB_NO
-    #define GENERATOR_FREQUENCY 10000UL
+#if GENERATOR_USE_FREQ_KNOB == GENERATOR_USE_FREQ_KNOB_YES
+    #define GENERATOR_FREQUENCY 100UL
 #endif
 
-#define GENERATOR_DUTY_KNOB_PIN     A2
+#define GENERATOR_DUTY_KNOB_PIN     A1
 #define GENERATOR_USE_DUTY_KNOB_YES 0
 #define GENERATOR_USE_DUTY_KNOB_NO  1
 #define GENERATOR_USE_DUTY_KNOB GENERATOR_USE_DUTY_KNOB_YES
@@ -38,10 +38,10 @@ inline String wave_name(int wave_type)
 {
     switch (wave_type)
     {
-    case GENERATOR_WAVE_TYPE_SQUARE:
-        return String(GENERATOR_WAVE_TYPE_SQUARE_NAME);
     case GENERATOR_NO_WAVE:
         return String(GENERATOR_NO_WAVE_NAME);
+    case GENERATOR_WAVE_TYPE_SQUARE:
+        return String(GENERATOR_WAVE_TYPE_SQUARE_NAME);
     default:
         break;
     }

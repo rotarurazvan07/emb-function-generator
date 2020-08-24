@@ -38,7 +38,7 @@ void wave_generate(int current_wave_type)
         generate_constant();
     }
 
-    if (current_wave_type == GENERATOR_WAVE_TYPE_SQUARE)
+    else
     {
         generate_square();
     }
@@ -68,10 +68,10 @@ static void generate_square()
 #ifndef GENERATOR_FREQUENCY
             read_potentiometer_freq();
 
-            if (prev_value_freq != average_freq)
+            if ((int)prev_value_freq != (int)average_freq)
             {
                 frequency = map(average_freq, 0, 1023, 1, 200000);
-                Serial.println(frequency);
+                //Serial.println(frequency);
                 prev_value_freq = average_freq;
                 setup_timer1_pwm();
             }
@@ -82,10 +82,10 @@ static void generate_square()
 #ifndef GENERATOR_DUTY
             read_potentiometer_duty();
 
-            if (prev_value_duty != average_duty)
+            if (map(prev_value_duty,0,1023,0,100) != map(average_duty,0,1023,0,100))
             {
                 duty_cycle = map(average_duty, 0, 1023, 1, 100);
-                Serial.println(duty_cycle);
+                //Serial.println(duty_cycle);
                 prev_value_duty = average_duty;
                 setup_timer1_pwm();
             }
@@ -252,8 +252,8 @@ static void uninit_timer1()
         OCR1A  = 0;
         TIMSK1 = 0;
 }
+ISR(TIMER1_COMPA_vect)
+{
 
-ISR(TIMER1_COMPA_vect){
-    PORTB ^= (1 << PB1);
 }
 */

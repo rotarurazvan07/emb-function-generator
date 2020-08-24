@@ -14,6 +14,7 @@ static void setup_timer1_pwm();
 
 static void generate_constant();
 static void generate_square();
+static void generate_sine();
 
 static void init_potentiometer_freq();
 static void read_potentiometer_freq();
