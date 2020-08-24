@@ -3,6 +3,9 @@
 
 #include "generator_config.h"
 
+static void wave_utility_btn_ISR();
+static void wave_select_btn_ISR();
+
 volatile int waves_types_index = 0;
 volatile int wave_type_current = -1;
 volatile bool wave_signaling = false;
@@ -39,7 +42,6 @@ static void wave_utility_btn_ISR()
     static unsigned long last_interrupt_time = 0;
     unsigned long interrupt_time = millis();
 
-    // If interrupts come faster than 200ms, assume it's a bounce and ignore
     if (interrupt_time - last_interrupt_time > 300)
     {
         if (wave_signaling == false)
@@ -70,7 +72,6 @@ static void wave_select_btn_ISR()
     static unsigned long last_interrupt_time = 0;
     unsigned long interrupt_time = millis();
 
-    // If interrupts come faster than 200ms, assume it's a bounce and ignore
     if (interrupt_time - last_interrupt_time > 300)
     {
         if (waves_types_index == GENERATOR_WAVES_NUMBER)

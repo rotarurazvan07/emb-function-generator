@@ -8,12 +8,11 @@
 #else
     volatile float frequency = map(analogRead(GENERATOR_FREQ_KNOB_PIN), 0, 1023, 1, 200000);;
 
-    /* Variables for potentiometer reading */
     const int numReadings_freq = 100;
-    float readings_freq[numReadings_freq];      // the readings from the analog input
-    int readIndex_freq = 0;                        // the index of the current reading
-    float total_freq = 0;                  // the running total
-    float average_freq = 0;                // the average
+    float readings_freq[numReadings_freq];
+    int readIndex_freq = 0;
+    float total_freq = 0;
+    float average_freq = 0;
     float prev_value_freq = 0;
 #endif
 
@@ -22,12 +21,11 @@
 #else
     volatile float duty_cycle = map(analogRead(GENERATOR_DUTY_KNOB_PIN), 0, 1023, 0, 100);
 
-    /* Variables for potentiometer reading */
     const int numReadings_duty = 100;
-    float readings_duty[numReadings_duty];      // the readings from the analog input
-    int readIndex_duty = 0;                        // the index of the current reading
-    float total_duty = 0;                  // the running total
-    float average_duty = 0;                // the average
+    float readings_duty[numReadings_duty];
+    int readIndex_duty = 0;
+    float total_duty = 0;
+    float average_duty = 0;
     float prev_value_duty = 0;
 #endif
 
@@ -71,8 +69,8 @@ static void generate_square()
             if ((int)prev_value_freq != (int)average_freq)
             {
                 frequency = map(average_freq, 0, 1023, 1, 200000);
-                //Serial.println(frequency);
                 prev_value_freq = average_freq;
+
                 setup_timer1_pwm();
             }
 
@@ -85,8 +83,8 @@ static void generate_square()
             if (map(prev_value_duty,0,1023,0,100) != map(average_duty,0,1023,0,100))
             {
                 duty_cycle = map(average_duty, 0, 1023, 1, 100);
-                //Serial.println(duty_cycle);
                 prev_value_duty = average_duty;
+
                 setup_timer1_pwm();
             }
 
@@ -169,13 +167,10 @@ static void generate_square()
 
 static void init_timer1_pwm()
 {
-    // Clear Timer/Counter Control Registers
     uninit_timer1_pwm();
 
-    // Set non-inverting mode
     TCCR1A |= (1 << COM1A1);
 
-    // Set fast PWM Mode 14
     TCCR1A |= (1 << WGM11);
 
     setup_timer1_pwm();
