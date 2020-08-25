@@ -6,7 +6,7 @@
 #ifdef GENERATOR_FREQUENCY
     volatile float frequency = GENERATOR_FREQUENCY;
 #else
-    volatile float frequency = map(analogRead(GENERATOR_FREQ_KNOB_PIN), 0, 1023, 1, 200000);;
+    volatile float frequency = map(analogRead(GENERATOR_FREQ_KNOB_PIN), 0, 1023, OSCILOSCOPE_LOWER_LIMIT, OSCILOSCOPE_UPPER_LIMIT);;
 
     const int numReadings_freq = 100;
     float readings_freq[numReadings_freq];
@@ -68,7 +68,7 @@ static void generate_square()
 
             if ((int)prev_value_freq != (int)average_freq)
             {
-                frequency = map(average_freq, 0, 1023, 1, 200000);
+                frequency = map(average_freq, 0, 1023, OSCILOSCOPE_LOWER_LIMIT, OSCILOSCOPE_UPPER_LIMIT);
                 prev_value_freq = average_freq;
 
                 setup_timer1_pwm();
@@ -80,9 +80,9 @@ static void generate_square()
 #ifndef GENERATOR_DUTY
             read_potentiometer_duty();
 
-            if (map(prev_value_duty,0,1023,0,100) != map(average_duty,0,1023,0,100))
+            if (map(prev_value_duty, 0, 1023, 0, 100) != map(average_duty, 0, 1023, 0, 100))
             {
-                duty_cycle = map(average_duty, 0, 1023, 1, 100);
+                duty_cycle = map(average_duty, 0, 1023, 0, 100);
                 prev_value_duty = average_duty;
 
                 setup_timer1_pwm();

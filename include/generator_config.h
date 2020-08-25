@@ -6,6 +6,10 @@
 #define WAVE_UTILITY_BUTTON    PD3
 #define WAVE_SIGNAL_OUTPUT_PIN 9
 
+/* Osciloscope resolution */
+#define OSCILOSCOPE_LOWER_LIMIT      1
+#define OSCILOSCOPE_UPPER_LIMIT      200000
+
 /* The wave types */
 #define GENERATOR_NO_WAVE            14
 #define GENERATOR_WAVE_TYPE_SQUARE   10
